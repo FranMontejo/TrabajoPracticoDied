@@ -1,18 +1,13 @@
 package died.tp.grafos;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
-import java.util.Set;
 import java.util.Stack;
-import java.util.TreeSet;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 
@@ -220,6 +215,33 @@ public class Grafo<T> {
     	return null;
     }
     
+  //Para PageRank
+    public List<T> adyacentes(T valor){
+    	Vertice<T> nodo = this.getNodo(valor);
+    	List<T> salida = new ArrayList<T>();
+		for(Arista<T> enlace : this.aristas){
+			if(enlace.getInicio().equals(nodo)){
+				salida.add(enlace.getFin().getValor());
+			} else if(enlace.getFin().equals(nodo)) {
+				salida.add(enlace.getInicio().getValor());
+			}
+		}
+		return salida;
+    }
+
+    public List<Vertice<T>> adyacentes(Vertice<T> nodo){
+    	List<Vertice<T>> salida = new ArrayList<Vertice<T>>();
+		for(Arista<T> enlace : this.aristas){
+			if(enlace.getInicio().equals(nodo)){
+				salida.add(enlace.getFin());
+			} else if(enlace.getFin().equals(nodo)) {
+				salida.add(enlace.getInicio());
+			}
+		}
+		return salida;
+    }
+
+
     
 }
 	

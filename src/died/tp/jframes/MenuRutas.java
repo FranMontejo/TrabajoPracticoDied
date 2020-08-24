@@ -1,20 +1,17 @@
 package died.tp.jframes;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import died.tp.controllers.PlantaController;
-import died.tp.jpanel.planta.PanelPlantas;
 import died.tp.jpanel.ruta.PanelRutas;
-
+import died.tp.jpanel.ruta.PanelFlujoMax;
+import died.tp.jpanel.ruta.PanelPageRank;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -56,11 +53,22 @@ public class MenuRutas extends JFrame {
 		panelInicial.add(btnCrearRuta);
 		
 		JButton btnFlujoMax = new JButton("Flujo M\u00E1ximo");
+		btnFlujoMax.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setContentPane(new PanelFlujoMax());
+			}
+
+		});
 		btnFlujoMax.setBounds(210, 130, 120, 30);
 		panelInicial.add(btnFlujoMax);
 		
 		JButton btnPageRank = new JButton("Page Rank");
 		btnPageRank.setBounds(210, 170, 120, 30);
+		btnPageRank.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setContentPane(new PanelPageRank());
+			}
+		});
 		panelInicial.add(btnPageRank);
 		
 		JButton btnVolver = new JButton("Volver");

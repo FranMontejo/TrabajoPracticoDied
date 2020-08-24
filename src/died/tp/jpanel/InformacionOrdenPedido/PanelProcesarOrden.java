@@ -62,6 +62,7 @@ public class PanelProcesarOrden extends JPanel {
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				odc.getPlantas().clear();
 				mp.setContentPane(pio);
 				
 			}
@@ -73,7 +74,7 @@ public class PanelProcesarOrden extends JPanel {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(ordenController.buscarRutas(comboBoxTipoRuta.getSelectedItem().toString(),comboBoxPlantas.getSelectedItem().toString())) {
-					ModeloTablaRegistrarOrden tablaModelo = new ModeloTablaRegistrarOrden(ordenController.getValorMaximo(),ordenController.getListaPlantas());
+					ModeloTablaProcesarOrden tablaModelo = new ModeloTablaProcesarOrden(ordenController.getValorMaximo(),ordenController.getListaPlantas());
 					JTable tablaDatos = new JTable(tablaModelo);
 					tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 					tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -83,7 +84,6 @@ public class PanelProcesarOrden extends JPanel {
 					scrollPane = new JScrollPane(tablaDatos);
 					scrollPane.setBounds(221, 10, 395, 345);
 					add(scrollPane);
-				
 					}
 				}
 		});
@@ -94,14 +94,21 @@ public class PanelProcesarOrden extends JPanel {
 		JButton btnNewButton_1 = new JButton("Procesar orden");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int rta = JOptionPane.showConfirmDialog(null, "¿Está seguro de que quiere avanzar? Se procesará su orden","Advertencia",JOptionPane.OK_CANCEL_OPTION);
-				if(rta == JOptionPane.OK_OPTION) {
-					if(ordenController.procesarOrden()) {
-						JOptionPane.showMessageDialog(null, "Orden procesada con éxito");
+				if(odc.getListaPlantas().size() > 1) {
+					String camino = JOptionPane.showInputDialog("Seleccione el camino");
+					if(camino != null && camino.length()!=0) {
+						ordenController.procesarOrden(Integer.valueOf(camino)-1);
+					}
+				}
+				else {
+					if(odc.getListaPlantas().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Primero debe buscar las rutas");
 					}
 					else {
-						JOptionPane.showMessageDialog(null, "No hay camiones disponibles actualmente");
-
+						int rta = JOptionPane.showConfirmDialog(null, "Está seguro de que quiere continuar?", "Advertencia", JOptionPane.OK_CANCEL_OPTION);
+						if(rta == JOptionPane.OK_OPTION) {
+							ordenController.procesarOrden(0);
+						}
 					}
 				}
 			}
