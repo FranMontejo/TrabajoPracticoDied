@@ -212,9 +212,10 @@ public class OrdenDePedidoDao {
 			if(rs.next()) {
 			p.setId(rs.getInt("id_planta"));
 			p.setNombrePlanta(rs.getString("nombrePlanta"));
-			}
 			PlantaStockDao psd = new PlantaStockDao();
 			p.setStockInsumos(psd.traerTodos(p.getId()));
+			}
+		
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}finally {

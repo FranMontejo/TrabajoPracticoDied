@@ -1,8 +1,6 @@
 package died.tp.dominio;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 public class OrdenDePedido {
@@ -29,7 +27,7 @@ public class OrdenDePedido {
 
 	
 	public OrdenDePedido() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 

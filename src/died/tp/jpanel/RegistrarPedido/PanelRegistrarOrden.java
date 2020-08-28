@@ -15,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import java.awt.Component;
 import java.awt.Label;
+import java.awt.TextField;
 import java.awt.Window;
 import java.awt.Button;
 import javax.swing.JTextField;
@@ -96,7 +97,7 @@ public class PanelRegistrarOrden extends JPanel{
 		JButton btnRegistrarOrden = new JButton("Registrar Orden");
 		btnRegistrarOrden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(opc.agregarOrden()) {		
+				if(opc.agregarOrden(dateChooserFechaMaxima.getDate(),comboBoxPlanta.getSelectedItem().toString())) {		
 					JOptionPane.showMessageDialog(null, "Orden de pedido registrada");
 					tablaModelo2.limpiar();
 					tablaModelo2.fireTableDataChanged();

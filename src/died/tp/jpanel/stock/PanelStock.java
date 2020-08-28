@@ -92,7 +92,7 @@ public class PanelStock extends JPanel {
 		JButton btnAgregarPlanta = new JButton("Agregar a Planta");
 		btnAgregarPlanta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				sc.agregarInsumoPlanta();
+				sc.agregarInsumoPlanta(comboBoxPlanta.getSelectedItem().toString(),textFieldInsumo.getText());
 			}
 		});
 		btnAgregarPlanta.setBounds(47, 221, 145, 30);

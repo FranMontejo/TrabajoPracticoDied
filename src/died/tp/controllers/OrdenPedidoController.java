@@ -3,6 +3,7 @@ package died.tp.controllers;
 
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +49,9 @@ public class OrdenPedidoController {
 		return insumosAntesSeleccion;
 	}
 
-	//AGREGO UN NUEVO MAP PARA LOS INSUMOS DE LA PRIMERA TABLA (LOS QUE SE MUESTRAN SIEMPRE)
+	/*AGREGO UN NUEVO MAP DE LOS INSUMOS DE LA PRIMERA TABLA (LOS QUE SE MUESTRAN SIEMPRE)
+	  PARA PODER MOSTRARLOS EN LA SEGUNDA TABLA*/
+	
 	public Insumo nuevoInsumo(Integer fila, Integer cantidad) {
 		this.insumosOrden.put(insumosAntesSeleccion.keySet().stream().collect(Collectors.toList()).get(fila),cantidad);
 		return this.insumosAntesSeleccion.keySet().stream().collect(Collectors.toList()).get(fila);
@@ -57,18 +60,20 @@ public class OrdenPedidoController {
 	public void actualizarValorCompra(Integer cantidad, Integer precio) {
 		totalCompra+= cantidad * precio;
 		cantidades.add(cantidad);
+		if(pro != null) {
 		pro.actualizarCompra(totalCompra);
+		}
 	}
 
 
-	public boolean agregarOrden() {
+	public boolean agregarOrden(Date fecha, String planta) {
 		if(totalCompra!=0) {
 			OrdenDePedido op = new OrdenDePedido();
-			op.setDestino(psd.getPlanta(pro.getComboBoxPlanta().getSelectedItem().toString()));
+			op.setDestino(psd.getPlanta(planta));
 			op.setInsumos(insumosOrden);
 			op.setEst(OrdenDePedido.estado.CREADA);
-			if(pro.getDateChooserFechaMaxima().getDate() != null ) {
-				op.setFechaEntrega(pro.getDateChooserFechaMaxima().getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+			if(fecha != null ) {
+				op.setFechaEntrega(fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 				opd.agregarOrdenPedido(op);
 				return true;
 			}

@@ -69,10 +69,13 @@ public class InformacionOrdenController {
 		boolean respuesta = false;
 		orden = this.obtenerOrdenSeleccionada(idOrden);
 		insumosPorOrden = orden.getInsumos().keySet().stream().collect(Collectors.toList());
+		if(insumosPorOrden.isEmpty()) {
+			return respuesta;
+		}
 		List<Planta> plantasBD = psd.traerListaPlantas();
 		for(Planta p: plantasBD) {
-			List<Insumo> insporPlanta = ordendao.traerInsumosPorPlanta(p.getId());
-			if((convertir(insporPlanta)).containsAll(convertir(insumosPorOrden))) {
+			List<Insumo> insumosporPlanta = ordendao.traerInsumosPorPlanta(p.getId());
+			if((convertir(insumosporPlanta)).containsAll(convertir(insumosPorOrden))) {
 				Integer contadorInsumosStock = 0;
 				for(Insumo i: insumosPorOrden) {
 					if(orden.getInsumos().get(i) < ordendao.obtenerStock(i.getId(),p.getId())) {

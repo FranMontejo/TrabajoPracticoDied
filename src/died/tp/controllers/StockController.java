@@ -36,14 +36,15 @@ public class StockController {
 		listaStock = p.getStockInsumos();
 	}
 	
+	//UNICAMENTE TRAE LOS STOCKS QUE SEAN MENORES AL PUNTO DE PEDIDO
 	public Map<Stock,Integer> traerTodos(){
 		setPlanta(ps.getComboBoxPlanta().getSelectedItem().toString());
 		return listaStock;
 	}
 
-	public void agregarInsumoPlanta() {
-		setPlanta(ps.getComboBoxPlanta().getSelectedItem().toString());
-		if(!controlarInsumoPlanta(ps.getTextFieldInsumo().getText())) {
+	public void agregarInsumoPlanta(String planta, String insumo) {
+		setPlanta(planta);
+		if(!controlarInsumoPlanta(insumo)) {
 			if(validacionVacios()) {
 				if(validarCampos()) {
 					Insumo i = this.existeInsumo();
